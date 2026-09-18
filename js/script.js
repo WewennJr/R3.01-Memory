@@ -22,15 +22,27 @@ for (let i = imgStart; i <= imgStart + 7; i++) {
 cards = [...images, ...images];
 
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+function shuffle(tab) {
+    for (let i = tab.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [tab[i], tab[j]] = [tab[j], tab[i]];
     }
 }
 
 
 function initGame() {
+    board.innerHTML = "";
+    resultDisplay.textContent = "";
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+    moves = 0;
+    matchedCount = 0;
+    seconds = 0;
+
+    movesDisplay.textContent = `Coups : ${moves}`;
+    timerDisplay.textContent = `Temps : 00:00`;
+
     shuffle(cards);
     cards.forEach((imgUrl) => {
         const card = document.createElement("div");
@@ -45,6 +57,21 @@ function initGame() {
 
     clearInterval(timerInterval);
     startTimer();
+}
+
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        seconds++;
+        timerDisplay.textContent = `Temps : ${formatTime(seconds)}`;
+    }, 1000);
+}
+
+
+function formatTime(sec) {
+    const min = String(Math.floor(sec / 60)).padStart(2, "0");
+    const s = String(sec % 60).padStart(2, "0");
+    return `${min}:${s}`;
 }
 
 
@@ -66,8 +93,8 @@ function handleCardClick(card) {
         secondCard = card;
         lockBoard = true;
         moves++;
+        movesDisplay.textContent = `Nb Coups : ${moves}`;
         checkMatch();
-
     }
 }
 
@@ -99,8 +126,12 @@ function checkMatch() {
 
 
 function checkVictory() {
-
+    if (matchedCount === cards.length) {
+        clearInterval(timerInterval);
+        resultDisplay.textContent = `Victoire ! Coups : ${moves} | Temps :${formatTime(seconds)}`;
+    }
 }
 
 
+restartBtn.addEventListener('click', initGame);
 initGame();
