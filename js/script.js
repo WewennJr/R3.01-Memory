@@ -23,7 +23,7 @@ cards = [...images, ...images];
 
 
 function shuffle(array) {
-    for (let i = array.lenght - 1; i > 0; i--) {
+    for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
@@ -39,5 +39,68 @@ function initGame() {
         card.setAttribute("role", "button");
         card.setAttribute("tabindex", "0");
         board.appendChild(card);
+
+        card.addEventListener('click', () => handleCardClick(card));
     })
+
+    clearInterval(timerInterval);
+    startTimer();
 }
+
+
+function revealCard(card) {
+    card.style.backgroundImage = `url("${card.dataset.value}")`;
+}
+
+
+function handleCardClick(card) {
+    if (lockBoard || card.classList.contains("matched") || card === firstCard || card.firstChild) {
+        return;
+    }
+    revealCard(card);
+    if (!firstCard) {
+        firstCard = card;
+        return;
+    }
+    else {
+        secondCard = card;
+        lockBoard = true;
+        moves++;
+        checkMatch();
+
+    }
+}
+
+
+function resetTurn() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+}
+
+
+function checkMatch() {
+    const isMatch = firstCard.dataset.value === secondCard.dataset.value;
+    if (isMatch) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matchedCount += +2;
+        resetTurn();
+        checkVictory();
+    }
+    else {
+        setTimeout(() => {
+            firstCard.style.backgroundImage = "";
+            secondCard.style.backgroundImage = "";
+            resetTurn();
+        }, 800);
+    }
+}
+
+
+function checkVictory() {
+
+}
+
+
+initGame();
