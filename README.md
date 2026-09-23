@@ -4,8 +4,7 @@ A simple memory game built with JavaScript as part of the university course **R3
 
 ## Objective
 
-Find all matching pairs of cards in as few moves and as little time as
-possible.
+Find all matching pairs of cards in as few moves and as little time as possible.
 
 ## How to play
 
