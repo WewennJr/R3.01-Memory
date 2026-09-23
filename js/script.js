@@ -1,3 +1,6 @@
+const homeScreen = document.getElementById("home-screen");
+const gameScreen = document.getElementById("game-screen");
+const playBtn = document.getElementById("play-btn");
 const board = document.getElementById("game-board");
 const movesDisplay = document.getElementById("moves");
 const timerDisplay = document.getElementById("timer");
@@ -144,5 +147,19 @@ function checkVictory() {
 }
 
 
+function home() {
+    homeScreen.style.display = "block";
+    gameScreen.style.display = "none";
+}
+
+
+function startGame() {
+    homeScreen.style.display = "none";
+    gameScreen.style.display = "block";
+    initGame();
+}
+
+
+playBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', initGame);
-initGame();
+home();
