@@ -15,11 +15,21 @@ let matchedCount = 0;
 let seconds = 0;
 let timerInterval = null;
 
-const images = [];
-for (let i = imgStart; i <= imgStart + 7; i++) {
-    images.push(`https://picsum.photos/seed/${i}/${dimension}/${dimension}`);
+let images = [];
+
+function generateCards() {
+    let newImgStart;
+    do {
+        newImgStart = Math.floor(Math.random() * 100) + 1;
+    } while (newImgStart === imgStart);
+
+    imgStart = newImgStart;
+    images = [];
+    for (let i = imgStart; i <= imgStart + 7; i++) {
+        images.push(`https://picsum.photos/seed/${i}/${dimension}/${dimension}`);
+    }
+    cards = [...images, ...images];
 }
-cards = [...images, ...images];
 
 
 function shuffle(tab) {
@@ -31,6 +41,7 @@ function shuffle(tab) {
 
 
 function initGame() {
+    generateCards();
     board.innerHTML = "";
     resultDisplay.textContent = "";
     firstCard = null;
