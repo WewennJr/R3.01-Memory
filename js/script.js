@@ -54,8 +54,8 @@ function initGame() {
     matchedCount = 0;
     seconds = 0;
 
-    movesDisplay.textContent = `Coups : ${moves}`;
-    timerDisplay.textContent = `Temps : 00:00`;
+    movesDisplay.textContent = `Moves : ${moves}`;
+    timerDisplay.textContent = `Time : 00:00`;
 
     shuffle(cards);
     cards.forEach((imgUrl) => {
@@ -77,7 +77,7 @@ function initGame() {
 function startTimer() {
     timerInterval = setInterval(() => {
         seconds++;
-        timerDisplay.textContent = `Temps : ${formatTime(seconds)}`;
+        timerDisplay.textContent = `Time : ${formatTime(seconds)}`;
     }, 1000);
 }
 
@@ -107,7 +107,7 @@ function handleCardClick(card) {
         secondCard = card;
         lockBoard = true;
         moves++;
-        movesDisplay.textContent = `Nb Coups : ${moves}`;
+        movesDisplay.textContent = `Moves : ${moves}`;
         checkMatch();
     }
 }
@@ -142,7 +142,7 @@ function checkMatch() {
 function checkVictory() {
     if (matchedCount === cards.length) {
         clearInterval(timerInterval);
-        resultDisplay.textContent = `Victoire ! Coups : ${moves} | Temps :${formatTime(seconds)}`;
+        resultDisplay.textContent = `Victory ! Moves : ${moves} | Time :${formatTime(seconds)}`;
     }
 }
 
