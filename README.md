@@ -1,4 +1,4 @@
-# R3.01 — Memory Game ([view the production](https://wewennjr.github.io/R3.01-Memory/))
+# R3.01 — Memory Game ([Online Page](https://wewennjr.github.io/R3.01-Memory/))
 
 Memory game created as part of the **R3.01 Web Development** course. The
 player must find all pairs of cards in as few moves as possible and in the shortest time.
